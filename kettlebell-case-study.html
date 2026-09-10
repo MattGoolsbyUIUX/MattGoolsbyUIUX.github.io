@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kettlebell Body System: Spec Work by Matt Goolsby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --iron: #000000;
+    --iron-panel: #302e2d;
+    --iron-panel-2: #000000;
+    --cream: #ffffff;
+    --cream-dim: #c7c4c1;
+    --mint: #34c299;
+    --mint-dim: #26a382;
+    --line: rgba(255,255,255,0.13);
+    --line-strong: rgba(255,255,255,0.24);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--iron);
+    color: var(--cream);
+    font-family: 'Libre Baskerville', serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    line-height: 1.14;
+  }
+  a{color:inherit;}
+  .wrap{max-width: 720px; margin: 0 auto; padding: 0 28px;}
+  .wrap-wide{max-width: 900px; margin: 0 auto; padding: 0 28px;}
+
+  /* NAV */
+  nav{
+    display:flex; justify-content:space-between; align-items:baseline;
+    max-width: 900px; margin: 0 auto; padding: 30px 28px 0;
+  }
+  .brand{font-family:'Playfair Display',serif; font-size: 17px; letter-spacing: 0.01em;}
+  .brand-sub{display:block; font-family:'Libre Baskerville',serif; font-size: 11px; color: var(--cream-dim); margin-top: 2px;}
+  .navlink{font-size: 13px; color: var(--cream-dim); text-decoration:none; border-bottom: 1px solid transparent; padding-bottom: 1px;}
+  .navlink:hover{border-color: var(--cream-dim);}
+
+  /* CASE STUDY INTRO */
+  .intro{position:relative; padding: 56px 0 0; overflow: hidden;}
+  .intro-mark{
+    position:absolute; top: -40px; right: -60px; width: 340px; height: 340px;
+    color: var(--cream); opacity: 0.05; pointer-events:none;
+  }
+  .kicker{font-size: 13px; color: var(--mint); margin-bottom: 16px; position:relative;}
+  .intro h1{font-size: clamp(32px, 5vw, 46px); margin-bottom: 20px; max-width: 620px; position:relative;}
+  .intro p.lede{font-size: 16.5px; line-height: 1.65; color: var(--cream-dim); max-width: 580px; position:relative;}
+
+  /* LEDGER (spec row) */
+  .ledger{
+    margin-top: 46px;
+    border-top: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+    display:grid; grid-template-columns: repeat(4, 1fr);
+  }
+  .ledger-item{padding: 18px 22px; border-left: 1px solid var(--line);}
+  .ledger-item:first-child{border-left:none; padding-left: 0;}
+  .ledger-item h4{font-size: 11px; letter-spacing: 0.02em; color: var(--cream-dim); font-weight: 500; margin-bottom: 6px;}
+  .ledger-item p{font-size: 13.5px; line-height: 1.5;}
+
+  /* FRAME LABEL */
+  .frame-label{
+    margin: 76px auto 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    font-size: 12px; color: var(--cream-dim);
+  }
+
+  /* MOCKUP FRAME holding the reproduced sales page */
+  .mockup{
+    max-width: 900px; margin: 0 auto 110px;
+  }
+  .page-a{background: var(--iron-panel-2); padding: 76px 40px; text-align:center;}
+  .page-b{background: var(--iron-panel); padding: 64px 40px;}
+  .page-a-left{background: var(--iron-panel-2); padding: 64px 40px;}
+
+  .eyebrow-cta{
+    display:inline-block; margin-bottom: 20px;
+    font-size: 12px; color: var(--cream-dim);
+  }
+  .hero-h{font-size: clamp(26px, 4vw, 38px); max-width: 620px; margin: 0 auto 18px;}
+  .hero-sub{font-size: 15.5px; color: var(--cream-dim); max-width: 520px; margin: 0 auto 32px; line-height: 1.6;}
+  .btn{
+    display:inline-block; background: var(--mint); color:#0a0a0a; font-weight:600;
+    font-size: 14px; padding: 13px 30px; border-radius: 999px; text-decoration:none;
+    letter-spacing: 0.01em;
+  }
+  .btn-quiet{
+    display:inline-block; color: var(--cream); font-weight:500;
+    font-size: 14px; padding: 12px 0; text-decoration:none;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .trust{font-size: 12.5px; color: var(--cream-dim); margin-top: 28px;}
+
+  .section-title{font-size: clamp(22px, 3vw, 27px); margin-bottom: 20px; text-align:center;}
+  .section-title.left{text-align:left;}
+  .body-text{font-size: 15.5px; line-height: 1.75; color: var(--cream-dim); max-width: 600px; margin: 0 auto;}
+  .body-text.left{margin: 0; max-width: 100%;}
+  .body-text p{margin-bottom: 14px;}
+  .body-text p:last-child{margin-bottom:0;}
+  .center{text-align:center;}
+
+  /* STAT LEDGER (replaces card grid) */
+  .stat-ledger{
+    margin-top: 34px;
+    border-top: 1px solid var(--line-strong);
+  }
+  .stat-row{
+    display:grid; grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+  .stat-cell{
+    padding: 18px 20px; display:flex; align-items:baseline; gap: 14px;
+    border-left: 1px solid var(--line);
+  }
+  .stat-cell:first-child{border-left:none;}
+  .stat-cell .num{font-family:'Playfair Display',serif; font-size: 24px; color: var(--mint); white-space:nowrap;}
+  .stat-cell .lbl{font-size: 13px; color: var(--cream-dim); line-height:1.4;}
+
+  /* TESTIMONIAL LIST (replaces card grid) */
+  .testimonial-list{margin-top: 34px; border-top: 1px solid var(--line-strong);}
+  .testimonial{padding: 22px 0; border-bottom: 1px solid var(--line); display:grid; grid-template-columns: 200px 1fr; gap: 24px;}
+  .testimonial .name{font-family:'Playfair Display',serif; font-size: 16px;}
+  .testimonial .role{font-size: 12.5px; color: var(--cream-dim); margin-top: 4px; line-height: 1.5;}
+  .testimonial p{font-size: 14.5px; color: var(--cream-dim); line-height: 1.65;}
+
+  /* NOT LIST (receipt style) */
+  .not-list{margin-top: 30px; border-top: 1px solid var(--line-strong);}
+  .not-row{
+    padding: 16px 0; border-bottom: 1px solid var(--line);
+    display:flex; gap: 14px; font-size: 14.5px; color: var(--cream-dim); line-height:1.5;
+  }
+  .not-row .mark{color: var(--mint); font-family:'Playfair Display',serif;}
+
+  .steps{margin-top: 34px; display:flex; flex-direction:column; gap: 20px;}
+  .step{display:flex; gap: 18px; align-items:flex-start;}
+  .step .n{font-family:'Playfair Display',serif; color: var(--mint); font-size: 18px; min-width: 24px;}
+  .step p{font-size: 14.5px; color: var(--cream-dim); line-height: 1.6;}
+
+  .final-cta{padding: 88px 40px; text-align:center; background: var(--iron-panel-2);}
+  .final-cta h2{font-size: clamp(26px, 4vw, 34px); max-width: 560px; margin: 0 auto 18px;}
+
+  /* END NOTE + FOOTER */
+  .end-note{
+    max-width: 720px; margin: 0 auto 90px; padding: 0 28px;
+    border-top: 1px solid var(--line); padding-top: 36px;
+    font-size: 14px; color: var(--cream-dim); line-height: 1.7;
+  }
+  footer{
+    background: var(--mint);
+    padding: 24px 28px;
+    text-align:center;
+    color: #0a0a0a;
+    font-size: 12.5px;
+  }
+
+  @media (max-width: 640px){
+    .ledger{grid-template-columns: 1fr 1fr;}
+    .ledger-item{border-left:none; border-top: 1px solid var(--line); padding: 16px 0;}
+    .ledger-item:nth-child(-n+2){border-top:none;}
+    .ledger-item:nth-child(2){padding-left: 22px; border-left: 1px solid var(--line);}
+    .ledger-item:nth-child(4){padding-left: 22px; border-left: 1px solid var(--line);}
+    .stat-row{grid-template-columns: 1fr;}
+    .stat-cell{border-left:none; border-top: 1px solid var(--line);}
+    .stat-cell:first-child{border-top:none;}
+    .testimonial{grid-template-columns: 1fr; gap: 6px;}
+    .page-a, .page-b, .page-a-left{padding: 48px 22px;}
+    .intro-mark{width: 220px; height: 220px; top: -20px; right: -50px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Matt Goolsby<span class="brand-sub">Direct-Response Copywriter &amp; Ghostwriter</span></div>
+  <a class="navlink" href="index.html">← Back to portfolio</a>
+</nav>
+
+<section class="intro wrap">
+  <svg class="intro-mark" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+    <circle cx="100" cy="128" r="58" stroke="currentColor" stroke-width="5"/>
+    <path d="M72 78 a28 30 0 0 1 56 0" stroke="currentColor" stroke-width="5" fill="none"/>
+    <path d="M86 92 L86 78 M114 92 L114 78" stroke="currentColor" stroke-width="5"/>
+  </svg>
+  <p class="kicker">Spec work</p>
+  <h1>Reclaim your primal strength, one kettlebell at a time.</h1>
+  <p class="lede">A men's fitness coach wanted a long-form sales page for his executive coaching offer. The purpose of the page was to close the client before the call even happened. This is the resulting page. It was written to hook the reader, identify the audience and pain point, present the solution, and remove doubt.</p>
+</section>
+
+<div class="ledger wrap-wide">
+  <div class="ledger-item">
+    <h4>Format</h4>
+    <p>Long-form sales page</p>
+  </div>
+  <div class="ledger-item">
+    <h4>Audience</h4>
+    <p>Executives &amp; founders, 30–45</p>
+  </div>
+  <div class="ledger-item">
+    <h4>Goal</h4>
+    <p>Book a qualified coaching call</p>
+  </div>
+  <div class="ledger-item">
+    <h4>Approach</h4>
+    <p>Problem-first, proof-heavy, scarcity earned not manufactured</p>
+  </div>
+</div>
+
+<div class="frame-label wrap-wide">The page, in full</div>
+
+<div class="mockup">
+
+  <!-- HERO -->
+  <div class="page-a">
+    <p class="eyebrow-cta">Kettlebell Body System</p>
+    <h2 class="hero-h">Drop 10% body fat &amp; move like you're 25 again, without the gym</h2>
+    <p class="hero-sub">The system 1,000+ executives, founders, and high-performers use to build primal strength in just 30–40 minutes a session.</p>
+    <a class="btn" href="#">Apply for 1-on-1 coaching →</a>
+    <p class="trust">Trusted by Google executives, Wall Street bankers, 8-figure founders, and former athletes</p>
+  </div>
+
+  <!-- OPENING HOOK -->
+  <div class="page-b">
+    <div class="body-text center">
+      <p>Give me six months, and I'll help you lose that last stubborn 5–10% body fat, add at least 20 lbs to your kettlebell lifts, and have you moving like a kid again, in 30–40 minutes a session.</p>
+      <p>This is for high performers and business owners between 30–45 who can't shake the skinny-fat physique, no matter what they've tried.</p>
+      <p>If that's you, we're going to cover two things: why the kettlebell body system works, and why it's already worked for 1,000+ high-performing men (Google executives, Wall Street bankers, 8-figure founders, former athletes) who'd tried everything else and still failed.</p>
+    </div>
+  </div>
+
+  <!-- FOUNDER CREDIBILITY -->
+  <div class="page-a-left">
+    <h3 class="section-title left">I practice what I preach</h3>
+    <div class="body-text left">
+      <p>I'm 30 years old. I train no more than thirty minutes a session, using just kettlebells and my bodyweight. I haven't set foot in a gym in over a decade, and I look, perform, move, and feel better than I ever have.</p>
+      <p>This is after years of chronic back pain, shoulder pain, and a shoulder injury that even surgery couldn't fix.</p>
+    </div>
+  </div>
+
+  <!-- MODERN MAN SYNDROME -->
+  <div class="page-b">
+    <h3 class="section-title">Modern Man Syndrome</h3>
+    <div class="body-text">
+      <p>Here's what's actually happening to your body right now: chronic inflammation from sitting all day, mental fog from overstimulation, low testosterone from convenience culture, poor posture from screens: a body that's forgetting how to move.</p>
+      <p>You're successful everywhere else, except your own body. You've tried to fix it. Here's the kicker: the gym is making it worse. Machines, isolation exercises, mirror muscles. All of it disconnects you further from how humans are built to move.</p>
+    </div>
+  </div>
+
+  <!-- SOLUTION -->
+  <div class="page-a-left">
+    <h3 class="section-title left">How a kettlebell body fixes this</h3>
+    <div class="body-text left">
+      <p>Coaching with me includes a simple, fully customized plan: mobility drills, workouts, flexibility work, nutrition guidance, and personal feedback on your form. Everything you need, nothing you don't. All you have to do is follow it.</p>
+      <p>I work with you personally and adjust your plan as you go, to make damn sure you get the results.</p>
+    </div>
+  </div>
+
+  <!-- ORIGIN STORY -->
+  <div class="page-b">
+    <h3 class="section-title">Ten years ago, I was broken</h3>
+    <div class="body-text">
+      <p>Coming off shoulder surgery, I was in constant pain. Yoga, calisthenics, martial arts. Everything helped a little, nothing quite fixed it.</p>
+      <p>Then I found kettlebells. Within months, my posture improved, my back pain disappeared, and I was pressing overhead with zero pain. I've since built more strength and mobility than I've ever had, and for a decade, I've been living proof it works.</p>
+    </div>
+  </div>
+
+  <!-- PROOF / STATS -->
+  <div class="page-a-left">
+    <h3 class="section-title left">The numbers</h3>
+    <p class="body-text left">Six years, 1,000+ men transformed, and over 10,000 personal feedback videos sent. We know exactly what works.</p>
+    <div class="stat-ledger">
+      <div class="stat-row">
+        <div class="stat-cell"><span class="num">5–10%</span><span class="lbl">avg. body fat lost in 6 months</span></div>
+        <div class="stat-cell"><span class="num">+20 lbs</span><span class="lbl">min. gain on kettlebell lifts</span></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-cell"><span class="num">78%</span><span class="lbl">eliminate chronic back pain</span></div>
+        <div class="stat-cell"><span class="num">91%</span><span class="lbl">report better energy than their 20s</span></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-cell"><span class="num">1,000+</span><span class="lbl">men coached over 6 years</span></div>
+        <div class="stat-cell"><span class="num">0</span><span class="lbl">gym memberships needed, ever</span></div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top: 40px;">
+      <a class="btn-quiet" href="#">Apply for 1-on-1 coaching</a>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="page-b">
+    <h3 class="section-title">Normal guys, real results</h3>
+    <div class="testimonial-list">
+      <div class="testimonial">
+        <div>
+          <div class="name">Aaron</div>
+          <div class="role">46 · single dad, corporate job, constant travel</div>
+        </div>
+        <p>Never had a six-pack in his life. Now, at 46, leaner than ever: 8% body fat lost, kettlebell weights doubled, moving better than he did in his twenties.</p>
+      </div>
+      <div class="testimonial">
+        <div>
+          <div class="name">Michael</div>
+          <div class="role">32 · finance, former college athlete</div>
+        </div>
+        <p>Let his body go chasing the career. Now down 10% body fat, with the first real abs he's ever had, and triple the kettlebell weight he started with.</p>
+      </div>
+      <div class="testimonial">
+        <div>
+          <div class="name">Austin</div>
+          <div class="role">37 · business owner, father of two</div>
+        </div>
+        <p>Tired of letting age and business run him down. Now down 10% body fat, passed the snatch test at 60+ lbs, and free of back and shoulder pain.</p>
+      </div>
+    </div>
+    <p class="body-text center" style="margin-top:28px;">These aren't outliers. They're normal guys with careers, families, and responsibilities, just like you.</p>
+  </div>
+
+  <!-- WHAT THIS IS NOT -->
+  <div class="page-a-left">
+    <h3 class="section-title left">What this is not</h3>
+    <div class="not-list">
+      <div class="not-row"><span class="mark">–</span> Not CrossFit that wrecks your joints.</div>
+      <div class="not-row"><span class="mark">–</span> Not bodybuilding that looks good but moves like garbage.</div>
+      <div class="not-row"><span class="mark">–</span> Not a PDF or an app that hands you a plan and disappears.</div>
+    </div>
+    <p class="body-text left" style="margin-top:24px;">Everything happens at home, on your schedule, with me and my team personally overseeing your progress.</p>
+  </div>
+
+  <!-- DIFFERENTIATION / SCARCITY -->
+  <div class="page-b">
+    <h3 class="section-title">Why I only take a few guys a month</h3>
+    <div class="body-text">
+      <p>Unlike fitness influencers who've never actually coached a client, I've personally worked with 1,000+ busy men through this exact system. My team and I review every form video within 48 hours.</p>
+      <p>This isn't a six-month before-and-after. It's the beginning of the rest of your life. Because I'm directly involved with every client, I only take a limited number of people each month. I'd rather work with 20 men who are serious than 200 who aren't.</p>
+    </div>
+    <div style="text-align:center; margin-top: 32px;">
+      <a class="btn-quiet" href="#">Apply for 1-on-1 coaching</a>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="page-a-left">
+    <h3 class="section-title left">How it works</h3>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><p>Click the button below and answer a few quick questions (takes a couple of minutes).</p></div>
+      <div class="step"><span class="n">2</span><p>Book a game plan session with me or someone on my team.</p></div>
+      <div class="step"><span class="n">3</span><p>On the call, we dig into your situation: where you're at, what you want, what's been in the way.</p></div>
+      <div class="step"><span class="n">4</span><p>If it's a fit, we'll show you exactly how it works. If it's not, we'll tell you straight and point you somewhere that can help.</p></div>
+    </div>
+  </div>
+
+  <!-- FINAL CLOSE -->
+  <div class="final-cta">
+    <h2>You've got two choices.</h2>
+    <p class="body-text" style="margin-bottom: 30px;">Keep doing what you're doing: wasting time at the gym, dealing with nagging pain, watching your body deteriorate while you succeed at everything else. Or join the 1,000+ high-performing men who've already reclaimed their strength.</p>
+    <p class="body-text" style="margin-bottom: 34px;">In six months, you'll either have the body, energy, and mobility of someone 15 years younger, or you'll still be exactly where you are now. Spots fill fast, and I only take guys who are ready.</p>
+    <a class="btn" href="#">Apply for 1-on-1 coaching →</a>
+  </div>
+
+</div>
+
+<div class="end-note wrap">
+  <p>Original transcript provided as a rough draft; this version keeps every claim, stat, and story intact while tightening the line-to-line copy and giving it a page structure built to hold attention through a 2,000-word scroll.</p>
+</div>
+
+<footer>
+  © 2026 Matt Goolsby. All rights reserved.
+</footer>
+
+</body>
+</html>
